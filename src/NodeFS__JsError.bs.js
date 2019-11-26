@@ -4,20 +4,20 @@
 var Block = require("bs-platform/lib/js/block.js");
 var Curry = require("bs-platform/lib/js/curry.js");
 
-function fromUnknown(unknown) {
+function fromException(exc) {
   var func = (
-            function (unknown, makeSystemError, makeOtherError) {
-                return unknown.syscall === undefined
-                    ? makeOtherError(unknown)
-                    : makeSystemError(unknown)
+            function (makeSystemError, makeOtherError, exc) {
+                return exc.syscall === undefined
+                    ? makeOtherError(exc)
+                    : makeSystemError(exc)
             }
         );
-  return Curry._3(func, unknown, (function (unknown) {
-                return /* SystemError */Block.__(0, [unknown]);
-              }), (function (unknown) {
-                return /* OtherError */Block.__(1, [unknown]);
-              }));
+  return Curry._3(func, (function (exc) {
+                return /* SystemError */Block.__(0, [exc]);
+              }), (function (exc) {
+                return /* OtherError */Block.__(1, [exc]);
+              }), exc);
 }
 
-exports.fromUnknown = fromUnknown;
+exports.fromException = fromException;
 /* No side effect */

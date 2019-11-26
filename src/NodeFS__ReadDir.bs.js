@@ -11,21 +11,21 @@ var NodeFS__Error = require("./NodeFS__Error.bs.js");
 var NodeFS__JsError = require("./NodeFS__JsError.bs.js");
 var Js_null_undefined = require("bs-platform/lib/js/js_null_undefined.js");
 
-var DirectoryEntry = {};
+var DirectoryEntry = { };
 
 function readDir(encoding, path) {
   return FutureBS.make((function (resolve) {
-    var options = {
-      withFileTypes: true,
-      encoding: Js_null_undefined.fromOption(encoding)
-    };
-    Fs.readdir(path, options, (function (error, files) {
-      return Curry._1(resolve, Rebase.$$Option.getOr(/* Ok */Block.__(0, [files]), Rebase.$$Option.map((function (error) {
-        return /* Error */Block.__(1, [NodeFS__Error.fromJsError(NodeFS__JsError.fromUnknown(error))]);
-      }), (error == null) ? undefined : Caml_option.some(error))));
-    }));
-    return /* () */0;
-  }));
+                var options = {
+                  withFileTypes: true,
+                  encoding: Js_null_undefined.fromOption(encoding)
+                };
+                Fs.readdir(path, options, (function (error, files) {
+                        return Curry._1(resolve, Rebase.$$Option.getOr(/* Ok */Block.__(0, [files]), Rebase.$$Option.map((function (error) {
+                                              return /* Error */Block.__(1, [NodeFS__Error.fromJsError(NodeFS__JsError.fromException(error))]);
+                                            }), (error == null) ? undefined : Caml_option.some(error))));
+                      }));
+                return /* () */0;
+              }));
 }
 
 var $$Error = 0;

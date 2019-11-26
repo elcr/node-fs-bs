@@ -41,7 +41,7 @@ external _readDir : (
         "withFileTypes": bool,
         "encoding": Js.Nullable.t(string)
     },
-    (Js.Nullable.t(Js.t('a)), array(DirectoryEntry.t)) => unit
+    (Js.Nullable.t(Js.Exn.t), array(DirectoryEntry.t)) => unit
 ) => unit = "readdir";
 
 
@@ -54,7 +54,7 @@ let readDir = (~encoding=?, path) => {
         _readDir(path, options, (error, files) => {
             Js.Nullable.toOption(error)
                 |> Option.map(error => {
-                    JsError.fromUnknown(error)
+                    JsError.fromException(error)
                         |> Error.fromJsError
                         |. Error
                 })

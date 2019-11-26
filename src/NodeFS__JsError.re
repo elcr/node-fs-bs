@@ -24,18 +24,18 @@ type t('a) =
     | OtherError(otherError);
 
 
-let fromUnknown = (unknown: Js.t('a)) => {
-    let func: (Js.t('a), systemError('b) => t('b), otherError => t('b)) => t('b) =
+let fromException = exc => {
+    let func: (
+        systemError('a) => t('a),
+        otherError => t('a),
+        Js.Exn.t
+    ) => t('a) =
         [%bs.raw {|
-            function (unknown, makeSystemError, makeOtherError) {
-                return unknown.syscall === undefined
-                    ? makeOtherError(unknown)
-                    : makeSystemError(unknown)
+            function (makeSystemError, makeOtherError, exc) {
+                return exc.syscall === undefined
+                    ? makeOtherError(exc)
+                    : makeSystemError(exc)
             }
         |}];
-    func(
-        unknown,
-        unknown => SystemError(unknown),
-        unknown => OtherError(unknown)
-    )
+    func(exc => SystemError(exc), exc => OtherError(exc), exc)
 };

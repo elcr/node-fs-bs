@@ -1,0 +1,20 @@
+{
+  "name": "node-fs-bs",
+  "version": "0.1.0",
+  "main": "src/NodeFS.bs.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/elcr/node-fs-bs.git"
+  },
+  "author": "elcr",
+  "license": "MIT",
+  "scripts": {
+    "build": "bsb -make-world -clean-world",
+    "test": "jest"
+  },
+  "dependencies": {
+    "bs-platform": "^5.0.6",
+    "future-bs": "ssh://git@github.com:elcr/future-bs.git",
+    "@glennsl/rebase": "^0.2.1"
+  }
+}

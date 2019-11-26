@@ -1,0 +1,29 @@
+{
+    "name": "node-fs-bs",
+    "bsc-flags": ["-bs-super-errors"],
+    "reason": {
+      "react-jsx": 3
+    },
+    "sources": [
+      {
+        "dir": "src",
+        "subdirs": true
+      }
+    ],
+    "package-specs": [
+      {
+        "module": "commonjs",
+        "in-source": true
+      }
+    ],
+    "suffix": ".bs.js",
+    "namespace": false,
+    "bs-dependencies": [
+      "@glennsl/rebase",
+      "future-bs"
+    ],
+    "bs-dev-dependencies": [
+    ],
+    "ppx-flags": [],
+    "refmt": 3
+  }

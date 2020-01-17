@@ -1,7 +1,7 @@
-open Rebase;
+open Relude.Globals;
 
 module Error = NodeFS__Error;
-module JsError = NodeFS__JsError;
+module Utils = NodeFS__Utils;
 
 
 module DirectoryEntry = {
@@ -33,33 +33,36 @@ module DirectoryEntry = {
 };
 
 
+type _readDirOptions = {
+    withFileTypes: bool,
+    encoding: string
+};
+
+
 [@bs.module "fs"]
 external _readDir : (
     string,
-    {
-        .
-        "withFileTypes": bool,
-        "encoding": Js.Nullable.t(string)
-    },
+    _readDirOptions,
     (Js.Nullable.t(Js.Exn.t), array(DirectoryEntry.t)) => unit
 ) => unit = "readdir";
 
 
-let readDir = (~encoding=?, path) => {
-    FutureBS.make(resolve => {
-        let options = {
-            "withFileTypes": true,
-            "encoding": Js.Nullable.fromOption(encoding)
-        };
-        _readDir(path, options, (error, files) => {
-            Js.Nullable.toOption(error)
-                |> Option.map(error => {
-                    JsError.fromException(error)
-                        |> Error.fromJsError
-                        |. Error
-                })
-                |> Option.getOr(Ok(files))
-                |> resolve
+let readDir = (~encoding="utf-8", path) => {
+    let io = Relude.Js.Promise.toIOLazy(() => {
+        Utils.makePromise((resolve, reject) => {
+            _readDir(path, { withFileTypes: true, encoding }, (error, files) => {
+                let result = Js.Nullable.toOption(error)
+                    |> Result.fromOption(files)
+                    |> Result.flip;
+                switch (result) {
+                    | Ok(files) => resolve(files)
+                    | Error(error) => reject(error)
+                }
+            })
         })
-    })
+    });
+    IO.mapError(promiseError => {
+        Utils.promiseErrorToException(promiseError)
+            |> Error.fromException
+    }, io)
 };

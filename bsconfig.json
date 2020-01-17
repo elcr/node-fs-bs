@@ -19,8 +19,8 @@
     "suffix": ".bs.js",
     "namespace": false,
     "bs-dependencies": [
-      "@glennsl/rebase",
-      "future-bs"
+      "relude",
+      "bs-abstract"
     ],
     "bs-dev-dependencies": [
     ],

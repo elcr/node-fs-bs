@@ -2,24 +2,17 @@
 # yarn lockfile v1
 
 
-"@glennsl/rebase@^0.2.1":
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/@glennsl/rebase/-/rebase-0.2.1.tgz#e89dff79445565bf871528b5beb3c043150aeaed"
-  integrity sha512-xE4IaROB5ebKdKiBEreo2/2F/7Ti+yF1mk1qI8B8oidnL0LmGJ0IohQTAWB6nK4n3DdCC67MNbHAc9f9HU8vqw==
+bs-abstract@^0.18.0:
+  version "0.18.0"
+  resolved "https://registry.yarnpkg.com/bs-abstract/-/bs-abstract-0.18.0.tgz#5ea6d131aaa8b1738832eca472c12d9e9ab6968a"
+  integrity sha512-kohLdSzk6fIw4u+O214/0paiPmhkJ+ChBOrXLWufQGT/aLu6hOWNlLIpWX7BFi7oGEsUMlIBxTs5jPWBT9gnjg==
 
-bs-platform@^5.0.6, bs-platform@^5.2.1:
-  version "5.2.1"
-  resolved "https://registry.yarnpkg.com/bs-platform/-/bs-platform-5.2.1.tgz#3f76f6d4f4c7255296375a8104c8be332770b691"
-  integrity sha512-3ISP+RBC/NYILiJnphCY0W3RTYpQ11JGa2dBBLVug5fpFZ0qtSaL3ZplD8MyjNeXX2bC7xgrWfgBSn8Tc9om7Q==
+bs-platform@^7.0.1:
+  version "7.0.1"
+  resolved "https://registry.yarnpkg.com/bs-platform/-/bs-platform-7.0.1.tgz#1d7b0ef6088b998dceee5db74a7cd8f01c20a3bd"
+  integrity sha512-UjStdtHhbtC/l6vKJ1XRDqrPk7rFf5PLYHtRX3akDXEYVnTbN36z0g4DEr5mU8S0N945e33HYts9x+i7hKKpZQ==
 
-"future-bs@ssh://git@github.com:elcr/future-bs.git":
-  version "0.1.0"
-  resolved "ssh://git@github.com:elcr/future-bs.git#da70bd7724dccc3ad7e18284a7b090baf8bf39d7"
-  dependencies:
-    bs-platform "^5.2.1"
-    reason-future "^2.5.0"
-
-reason-future@^2.5.0:
-  version "2.5.0"
-  resolved "https://registry.yarnpkg.com/reason-future/-/reason-future-2.5.0.tgz#52d91a343f65c6d527cd1cca4685bbc097971c68"
-  integrity sha512-rzrMQlRfQYlyiryQQJfgj04IEUN1Eau4JLnorlEVSm6Yxp2Kq6no3p+dWCocz5BLR9wIFPnSFMloLNP4ErK6ag==
+relude@^0.52.0:
+  version "0.52.0"
+  resolved "https://registry.yarnpkg.com/relude/-/relude-0.52.0.tgz#5deace65d6a1239662ce0eecdfcea5f84b0189b2"
+  integrity sha512-QHlgXRkPGpu919mXPyVEU8grmJhH5ZXypsUyamarHY7LQeAhphvoLZsBlUzdG5zDHLv+qP7eQTo9CnqARexkFQ==

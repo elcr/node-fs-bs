@@ -2,82 +2,84 @@
 'use strict';
 
 var Block = require("bs-platform/lib/js/block.js");
+var Curry = require("bs-platform/lib/js/curry.js");
 var Caml_option = require("bs-platform/lib/js/caml_option.js");
 
-function fromJsError(error) {
-  return /* record */[
-          /* address */Caml_option.nullable_to_opt(error.address),
-          /* code */error.code,
-          /* dest */Caml_option.nullable_to_opt(error.dest),
-          /* errno */error.errno,
-          /* info */Caml_option.nullable_to_opt(error.info),
-          /* message */error.message,
-          /* path */Caml_option.nullable_to_opt(error.path),
-          /* port */Caml_option.nullable_to_opt(error.port),
-          /* syscall */error.syscall
-        ];
+function fromJs(param) {
+  return {
+          address: Caml_option.nullable_to_opt(param.address),
+          code: param.code,
+          dest: Caml_option.nullable_to_opt(param.dest),
+          errno: param.errno,
+          info: Caml_option.nullable_to_opt(param.info),
+          message: param.message,
+          path: Caml_option.nullable_to_opt(param.path),
+          port: Caml_option.nullable_to_opt(param.port),
+          syscall: param.syscall
+        };
 }
 
 var SystemError = {
-  fromJsError: fromJsError
+  fromJs: fromJs
 };
 
-function fromJsError$1(error) {
-  return /* record */[
-          /* code */error.code,
-          /* message */error.message
-        ];
-}
+var UnknownError = { };
 
-var OtherError = {
-  fromJsError: fromJsError$1
-};
-
-function fromJsError$2(error) {
-  if (error.tag) {
-    return /* UnknownOtherError */Block.__(15, [fromJsError$1(error[0])]);
-  } else {
-    var errorRecord = fromJsError(error[0]);
-    var match = errorRecord[/* code */1];
-    switch (match) {
-      case "EACCES" :
-          return /* AccessDenied */Block.__(0, [errorRecord]);
-      case "EADDRINUSE" :
-          return /* AddressInUse */Block.__(1, [errorRecord]);
-      case "ECONNREFUSED" :
-          return /* ConnectionRefused */Block.__(2, [errorRecord]);
-      case "ECONNRESET" :
-          return /* ConnectionReset */Block.__(3, [errorRecord]);
-      case "EEXIST" :
-          return /* FileExists */Block.__(4, [errorRecord]);
-      case "EISDIR" :
-          return /* IsADirectory */Block.__(5, [errorRecord]);
-      case "EMFILE" :
-          return /* TooManyOpenFiles */Block.__(6, [errorRecord]);
-      case "ENOENT" :
-          return /* NoSuchFileOrDirectory */Block.__(7, [errorRecord]);
-      case "ENOTDIR" :
-          return /* NotADirectory */Block.__(8, [errorRecord]);
-      case "ENOTEMPTY" :
-          return /* DirectoryNotEmpty */Block.__(9, [errorRecord]);
-      case "ENOTFOUND" :
-          return /* DNSLookupFailed */Block.__(10, [errorRecord]);
-      case "EPERM" :
-          return /* NotPermitted */Block.__(11, [errorRecord]);
-      case "EPIPE" :
-          return /* BrokenPipe */Block.__(12, [errorRecord]);
-      case "ETIMEDOUT" :
-          return /* TimedOut */Block.__(13, [errorRecord]);
-      default:
-        return /* UnknownSystemError */Block.__(14, [errorRecord]);
-    }
+function _makeSystemError(exc) {
+  var error = fromJs(exc);
+  var match = error.code;
+  switch (match) {
+    case "EACCES" :
+        return /* AccessDenied */Block.__(0, [error]);
+    case "EADDRINUSE" :
+        return /* AddressInUse */Block.__(1, [error]);
+    case "ECONNREFUSED" :
+        return /* ConnectionRefused */Block.__(2, [error]);
+    case "ECONNRESET" :
+        return /* ConnectionReset */Block.__(3, [error]);
+    case "EEXIST" :
+        return /* FileExists */Block.__(4, [error]);
+    case "EISDIR" :
+        return /* IsADirectory */Block.__(5, [error]);
+    case "EMFILE" :
+        return /* TooManyOpenFiles */Block.__(6, [error]);
+    case "ENOENT" :
+        return /* NoSuchFileOrDirectory */Block.__(7, [error]);
+    case "ENOTDIR" :
+        return /* NotADirectory */Block.__(8, [error]);
+    case "ENOTEMPTY" :
+        return /* DirectoryNotEmpty */Block.__(9, [error]);
+    case "ENOTFOUND" :
+        return /* DNSLookupFailed */Block.__(10, [error]);
+    case "EPERM" :
+        return /* NotPermitted */Block.__(11, [error]);
+    case "EPIPE" :
+        return /* BrokenPipe */Block.__(12, [error]);
+    case "ETIMEDOUT" :
+        return /* TimedOut */Block.__(13, [error]);
+    default:
+      return /* UnknownSystemError */Block.__(14, [error]);
   }
 }
 
-var JsError = 0;
+function _makeUnknownError(exc) {
+  return /* OtherUnknownError */Block.__(15, [exc]);
+}
 
-exports.JsError = JsError;
+function fromException(exc) {
+  var _makeError = (
+        function (makeSystemError, makeUnknownError, exc) {
+            return exc.syscall === undefined
+                ? makeUnknownError(exc)
+                : makeSystemError(exc)
+        }
+    );
+  return Curry._3(_makeError, _makeSystemError, _makeUnknownError, exc);
+}
+
 exports.SystemError = SystemError;
-exports.OtherError = OtherError;
-exports.fromJsError = fromJsError$2;
+exports.UnknownError = UnknownError;
+exports._makeSystemError = _makeSystemError;
+exports._makeUnknownError = _makeUnknownError;
+exports.fromException = fromException;
 /* No side effect */

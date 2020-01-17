@@ -13,8 +13,8 @@
     "test": "jest"
   },
   "dependencies": {
-    "bs-platform": "^5.0.6",
-    "future-bs": "ssh://git@github.com:elcr/future-bs.git",
-    "@glennsl/rebase": "^0.2.1"
+    "bs-abstract": "^0.18.0",
+    "bs-platform": "^7.0.1",
+    "relude": "^0.52.0"
   }
 }

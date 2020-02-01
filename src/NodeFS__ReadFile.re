@@ -18,22 +18,20 @@ external _readFile : (
 ) => unit = "readFile";
 
 
-let readFile = (~encoding="utf-8", path) => {
-    let io = Relude.Js.Promise.toIOLazy(() => {
-        Utils.makePromise((resolve, reject) => {
-            _readFile(path, { withFileTypes: true, encoding }, (error, contents) => {
-                let result = Js.Nullable.toOption(error)
+let readFile = (~encoding="utf-8", path) =>
+    Relude.Js.Promise.toIOLazy(() =>
+        Utils.makePromise((resolve, reject) =>
+            _readFile(path, { withFileTypes: true, encoding }, (error, contents) =>
+                Js.Nullable.toOption(error)
                     |> Result.fromOption(contents)
-                    |> Result.flip;
-                switch (result) {
-                    | Ok(contents) => resolve(contents)
-                    | Error(error) => reject(error)
-                }
-            })
-        })
-    });
-    IO.mapError(promiseError => {
+                    |> Result.flip
+                    |> Result.tapOk(resolve)
+                    |> Result.tapError(reject)
+                    |> ignore
+            )
+        )
+    )
+    |> IO.mapError(promiseError =>
         Utils.promiseErrorToException(promiseError)
             |> Error.fromException
-    }, io)
-};
+    );

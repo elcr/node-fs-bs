@@ -47,22 +47,20 @@ external _readDir : (
 ) => unit = "readdir";
 
 
-let readDir = (~encoding="utf-8", path) => {
-    let io = Relude.Js.Promise.toIOLazy(() => {
-        Utils.makePromise((resolve, reject) => {
-            _readDir(path, { withFileTypes: true, encoding }, (error, files) => {
-                let result = Js.Nullable.toOption(error)
+let readDir = (~encoding="utf-8", path) =>
+    Relude.Js.Promise.toIOLazy(() =>
+        Utils.makePromise((resolve, reject) =>
+            _readDir(path, { withFileTypes: true, encoding }, (error, files) =>
+                Js.Nullable.toOption(error)
                     |> Result.fromOption(files)
-                    |> Result.flip;
-                switch (result) {
-                    | Ok(files) => resolve(files)
-                    | Error(error) => reject(error)
-                }
-            })
-        })
-    });
-    IO.mapError(promiseError => {
+                    |> Result.flip
+                    |> Result.tapOk(resolve)
+                    |> Result.tapError(reject)
+                    |> ignore
+            )
+        )
+    )
+    |> IO.mapError(promiseError =>
         Utils.promiseErrorToException(promiseError)
             |> Error.fromException
-    }, io)
-};
+    );

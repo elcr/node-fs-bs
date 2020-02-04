@@ -10,8 +10,11 @@ var ReadFile = /* alias */0;
 
 var Utils = /* alias */0;
 
+var ReadStream = /* alias */0;
+
 exports.$$Error = $$Error;
 exports.ReadDir = ReadDir;
 exports.ReadFile = ReadFile;
 exports.Utils = Utils;
+exports.ReadStream = ReadStream;
 /* No side effect */

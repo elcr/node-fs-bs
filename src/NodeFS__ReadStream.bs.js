@@ -2,6 +2,7 @@
 'use strict';
 
 var Fs = require("fs");
+var Curry = require("bs-platform/lib/js/curry.js");
 var Relude_IO = require("relude/src/Relude_IO.bs.js");
 var NodeFS__Error = require("./NodeFS__Error.bs.js");
 var Relude_Js_Promise = require("relude/src/js/Relude_Js_Promise.bs.js");
@@ -11,7 +12,9 @@ function make(path) {
                     return new Promise((function (resolve, reject) {
                                   var stream = Fs.createReadStream(path);
                                   stream.on("error", reject);
-                                  stream.on("ready", resolve);
+                                  stream.on("ready", (function (param) {
+                                          return Curry._1(resolve, stream);
+                                        }));
                                   return /* () */0;
                                 }));
                   })));

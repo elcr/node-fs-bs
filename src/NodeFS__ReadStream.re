@@ -24,7 +24,7 @@ let make = path =>
         Utils.makePromise((resolve, reject) => {
             let stream = _createReadStream(path);
             _onError("error", reject, stream);
-            _onReady("ready", resolve, stream)
+            _onReady("ready", () => resolve(stream), stream)
         })
     )
     |> IO.mapError(promiseError =>

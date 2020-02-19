@@ -5,7 +5,6 @@ module Utils = NodeFS__Utils;
 
 
 type _readFileOptions = {
-    withFileTypes: bool,
     encoding: string
 };
 
@@ -14,24 +13,17 @@ type _readFileOptions = {
 external _readFile : (
     string,
     _readFileOptions,
-    (Js.Nullable.t(Js.Exn.t), string) => unit
+    (Js.Null.t(Js.Exn.t), string) => unit
 ) => unit = "readFile";
 
 
 let readFile = (~encoding="utf-8", path) =>
-    Relude.Js.Promise.toIOLazy(() =>
-        Utils.makePromise((resolve, reject) =>
-            _readFile(path, { withFileTypes: true, encoding }, (error, contents) =>
-                Js.Nullable.toOption(error)
-                    |> Result.fromOption(contents)
-                    |> Result.flip
-                    |> Result.tapOk(resolve)
-                    |> Result.tapError(reject)
-                    |> ignore
-            )
+    IO.async(resolve =>
+        _readFile(path, { encoding: encoding }, (error, contents) =>
+            Js.Null.toOption(error)
+                |> Result.fromOption(contents)
+                |> Result.flip
+                |> Result.mapError(Error.fromException)
+                |> resolve
         )
-    )
-    |> IO.mapError(promiseError =>
-        Utils.promiseErrorToException(promiseError)
-            |> Error.fromException
     );

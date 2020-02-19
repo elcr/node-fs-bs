@@ -5,7 +5,9 @@ module Utils = NodeFS__Utils;
 
 
 module DirectoryEntry = {
-    type t;
+    type t = {
+        name: string
+    };
 
     [@bs.send]
     external isBlockDevice : t => bool = "isBlockDevice";
@@ -27,9 +29,6 @@ module DirectoryEntry = {
 
     [@bs.send]
     external isSymbolicLink : t => bool = "isSymbolicLink";
-
-    [@bs.get]
-    external getName : t => string = "name";
 };
 
 
@@ -43,24 +42,17 @@ type _readDirOptions = {
 external _readDir : (
     string,
     _readDirOptions,
-    (Js.Nullable.t(Js.Exn.t), array(DirectoryEntry.t)) => unit
+    (Js.Null.t(Js.Exn.t), array(DirectoryEntry.t)) => unit
 ) => unit = "readdir";
 
 
 let readDir = (~encoding="utf-8", path) =>
-    Relude.Js.Promise.toIOLazy(() =>
-        Utils.makePromise((resolve, reject) =>
-            _readDir(path, { withFileTypes: true, encoding }, (error, files) =>
-                Js.Nullable.toOption(error)
-                    |> Result.fromOption(files)
-                    |> Result.flip
-                    |> Result.tapOk(resolve)
-                    |> Result.tapError(reject)
-                    |> ignore
-            )
+    IO.async(resolve =>
+        _readDir(path, { withFileTypes: true, encoding }, (error, files) =>
+            Js.Null.toOption(error)
+                |> Result.fromOption(files)
+                |> Result.flip
+                |> Result.mapError(Error.fromException)
+                |> resolve
         )
-    )
-    |> IO.mapError(promiseError =>
-        Utils.promiseErrorToException(promiseError)
-            |> Error.fromException
     );

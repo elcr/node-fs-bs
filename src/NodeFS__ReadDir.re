@@ -1,7 +1,6 @@
 open Relude.Globals;
 
 module Error = NodeFS__Error;
-module Utils = NodeFS__Utils;
 
 
 module DirectoryEntry = {

@@ -25,10 +25,7 @@ function readDir($staropt$star, path) {
 
 var $$Error = /* alias */0;
 
-var Utils = /* alias */0;
-
 exports.$$Error = $$Error;
-exports.Utils = Utils;
 exports.DirectoryEntry = DirectoryEntry;
 exports.readDir = readDir;
 /* fs Not a pure module */

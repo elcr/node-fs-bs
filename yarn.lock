@@ -12,6 +12,10 @@ bs-platform@^7.0.1:
   resolved "https://registry.yarnpkg.com/bs-platform/-/bs-platform-7.0.1.tgz#1d7b0ef6088b998dceee5db74a7cd8f01c20a3bd"
   integrity sha512-UjStdtHhbtC/l6vKJ1XRDqrPk7rFf5PLYHtRX3akDXEYVnTbN36z0g4DEr5mU8S0N945e33HYts9x+i7hKKpZQ==
 
+"node-stream-bs@ssh://git@github.com:elcr/node-stream-bs.git":
+  version "0.1.0"
+  resolved "ssh://git@github.com:elcr/node-stream-bs.git#1237ff23dba681470c6920224813f24a091d402a"
+
 relude@^0.52.0:
   version "0.52.0"
   resolved "https://registry.yarnpkg.com/relude/-/relude-0.52.0.tgz#5deace65d6a1239662ce0eecdfcea5f84b0189b2"

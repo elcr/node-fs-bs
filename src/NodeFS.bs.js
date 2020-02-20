@@ -12,9 +12,12 @@ var Utils = /* alias */0;
 
 var ReadStream = /* alias */0;
 
+var Stat = /* alias */0;
+
 exports.$$Error = $$Error;
 exports.ReadDir = ReadDir;
 exports.ReadFile = ReadFile;
 exports.Utils = Utils;
 exports.ReadStream = ReadStream;
+exports.Stat = Stat;
 /* No side effect */

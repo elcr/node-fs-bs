@@ -14,7 +14,7 @@ bs-platform@^7.0.1:
 
 "node-stream-bs@ssh://git@github.com:elcr/node-stream-bs.git":
   version "0.1.0"
-  resolved "ssh://git@github.com:elcr/node-stream-bs.git#1237ff23dba681470c6920224813f24a091d402a"
+  resolved "ssh://git@github.com:elcr/node-stream-bs.git#0175105191d745e55f4cff361b3fb7116141d88e"
 
 relude@^0.52.0:
   version "0.52.0"

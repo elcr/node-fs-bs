@@ -57,7 +57,7 @@ external isSymbolicLink : t => bool = "isSymbolicLink";
 external _stat : (
     string,
     (Js.Null.t(Js.Exn.t), t) => unit
-) => unit = "readFile";
+) => unit = "stat";
 
 
 let stat = path =>

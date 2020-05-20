@@ -13,11 +13,11 @@ function stat(path) {
                 Fs.stat(path, (function (error, data) {
                         return Curry._1(resolve, Curry._2(Relude_Result.mapError, NodeFS__Error.fromException, Relude_Result.flip(Relude_Result.fromOption(data, error === null ? undefined : Caml_option.some(error)))));
                       }));
-                return /* () */0;
+                
               }));
 }
 
-var $$Error = /* alias */0;
+var $$Error;
 
 exports.$$Error = $$Error;
 exports.stat = stat;

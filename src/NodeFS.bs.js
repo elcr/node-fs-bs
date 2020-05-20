@@ -2,17 +2,17 @@
 'use strict';
 
 
-var $$Error = /* alias */0;
+var $$Error;
 
-var ReadDir = /* alias */0;
+var ReadDir;
 
-var ReadFile = /* alias */0;
+var ReadFile;
 
-var Utils = /* alias */0;
+var Utils;
 
-var ReadStream = /* alias */0;
+var ReadStream;
 
-var Stat = /* alias */0;
+var Stat;
 
 exports.$$Error = $$Error;
 exports.ReadDir = ReadDir;

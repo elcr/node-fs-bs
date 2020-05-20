@@ -2,21 +2,30 @@
 # yarn lockfile v1
 
 
-bs-abstract@^0.18.0:
-  version "0.18.0"
-  resolved "https://registry.yarnpkg.com/bs-abstract/-/bs-abstract-0.18.0.tgz#5ea6d131aaa8b1738832eca472c12d9e9ab6968a"
-  integrity sha512-kohLdSzk6fIw4u+O214/0paiPmhkJ+ChBOrXLWufQGT/aLu6hOWNlLIpWX7BFi7oGEsUMlIBxTs5jPWBT9gnjg==
+"bs-bastet@ssh://git@github.com:elcr/bs-bastet-without-bisect.git":
+  version "1.2.5"
+  resolved "ssh://git@github.com:elcr/bs-bastet-without-bisect.git#9c10ef27a2932ea0f3d98eb2d202f02d27dee67d"
+  dependencies:
+    bs-platform "^7.2.2"
+    bs-stdlib-shims "^0.1.0"
 
-bs-platform@^7.0.1:
-  version "7.0.1"
-  resolved "https://registry.yarnpkg.com/bs-platform/-/bs-platform-7.0.1.tgz#1d7b0ef6088b998dceee5db74a7cd8f01c20a3bd"
-  integrity sha512-UjStdtHhbtC/l6vKJ1XRDqrPk7rFf5PLYHtRX3akDXEYVnTbN36z0g4DEr5mU8S0N945e33HYts9x+i7hKKpZQ==
+bs-platform@^7.2.2, bs-platform@^7.3.2:
+  version "7.3.2"
+  resolved "https://registry.yarnpkg.com/bs-platform/-/bs-platform-7.3.2.tgz#301f5c9b4e8cf5713cb60ca22e145e56e793affe"
+  integrity sha512-seJL5g4anK9la4erv+B2o2sMHQCxDF6OCRl9en3hbaUos/S3JsusQ0sPp4ORsbx5eXfHLYBwPljwKXlgpXtsgQ==
+
+bs-stdlib-shims@^0.1.0:
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/bs-stdlib-shims/-/bs-stdlib-shims-0.1.0.tgz#f64166392652a07c37b9be462beebb6c0c66a74e"
+  integrity sha512-CszWow8iXOKgmzNCc5dR3kERaqzIp3f4nbV7lJF5vS9BHm70GqLlu7OBE/VCPKZ5noG1VtJAIVqIdLFqUdIRUQ==
 
 "node-stream-bs@ssh://git@github.com:elcr/node-stream-bs.git":
   version "0.1.0"
   resolved "ssh://git@github.com:elcr/node-stream-bs.git#0175105191d745e55f4cff361b3fb7116141d88e"
 
-relude@^0.52.0:
-  version "0.52.0"
-  resolved "https://registry.yarnpkg.com/relude/-/relude-0.52.0.tgz#5deace65d6a1239662ce0eecdfcea5f84b0189b2"
-  integrity sha512-QHlgXRkPGpu919mXPyVEU8grmJhH5ZXypsUyamarHY7LQeAhphvoLZsBlUzdG5zDHLv+qP7eQTo9CnqARexkFQ==
+"relude@ssh://git@github.com:elcr/relude-without-bisect.git":
+  version "0.63.1"
+  resolved "ssh://git@github.com:elcr/relude-without-bisect.git#99d9dd9638308094614f2aa841922f277b0f7eb9"
+  dependencies:
+    bs-bastet "ssh://git@github.com:elcr/bs-bastet-without-bisect.git"
+    bs-platform "^7.2.2"

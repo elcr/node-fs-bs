@@ -2,7 +2,6 @@
 'use strict';
 
 var Block = require("bs-platform/lib/js/block.js");
-var Curry = require("bs-platform/lib/js/curry.js");
 var Caml_option = require("bs-platform/lib/js/caml_option.js");
 
 function fromJs(param) {
@@ -67,14 +66,12 @@ function _makeUnknownError(exc) {
 }
 
 function fromException(exc) {
-  var _makeError = (
-        function (makeSystemError, makeUnknownError, exc) {
+  var _makeError = (function (makeSystemError, makeUnknownError, exc) {
             return exc.syscall === undefined
                 ? makeUnknownError(exc)
                 : makeSystemError(exc)
-        }
-    );
-  return Curry._3(_makeError, _makeSystemError, _makeUnknownError, exc);
+        });
+  return _makeError(_makeSystemError, _makeUnknownError, exc);
 }
 
 exports.SystemError = SystemError;

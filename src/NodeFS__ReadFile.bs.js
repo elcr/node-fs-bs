@@ -8,19 +8,19 @@ var Caml_option = require("bs-platform/lib/js/caml_option.js");
 var NodeFS__Error = require("./NodeFS__Error.bs.js");
 var Relude_Result = require("relude/src/Relude_Result.bs.js");
 
-function readFile($staropt$star, path) {
-  var encoding = $staropt$star !== undefined ? $staropt$star : "utf-8";
+function readFile(encodingOpt, path) {
+  var encoding = encodingOpt !== undefined ? encodingOpt : "utf-8";
   return Relude_IO.async((function (resolve) {
                 Fs.readFile(path, {
                       encoding: encoding
                     }, (function (error, contents) {
                         return Curry._1(resolve, Curry._2(Relude_Result.mapError, NodeFS__Error.fromException, Relude_Result.flip(Relude_Result.fromOption(contents, error === null ? undefined : Caml_option.some(error)))));
                       }));
-                return /* () */0;
+                
               }));
 }
 
-var $$Error = /* alias */0;
+var $$Error;
 
 exports.$$Error = $$Error;
 exports.readFile = readFile;

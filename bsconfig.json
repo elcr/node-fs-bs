@@ -19,9 +19,9 @@
     "suffix": ".bs.js",
     "namespace": false,
     "bs-dependencies": [
-      "relude",
-      "bs-abstract",
-      "node-stream-bs"
+      "bs-bastet",
+      "node-stream-bs",
+      "relude"
     ],
     "bs-dev-dependencies": [
     ],

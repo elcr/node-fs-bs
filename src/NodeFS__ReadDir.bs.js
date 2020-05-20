@@ -10,8 +10,8 @@ var Relude_Result = require("relude/src/Relude_Result.bs.js");
 
 var DirectoryEntry = { };
 
-function readDir($staropt$star, path) {
-  var encoding = $staropt$star !== undefined ? $staropt$star : "utf-8";
+function readDir(encodingOpt, path) {
+  var encoding = encodingOpt !== undefined ? encodingOpt : "utf-8";
   return Relude_IO.async((function (resolve) {
                 Fs.readdir(path, {
                       withFileTypes: true,
@@ -19,11 +19,11 @@ function readDir($staropt$star, path) {
                     }, (function (error, files) {
                         return Curry._1(resolve, Curry._2(Relude_Result.mapError, NodeFS__Error.fromException, Relude_Result.flip(Relude_Result.fromOption(files, error === null ? undefined : Caml_option.some(error)))));
                       }));
-                return /* () */0;
+                
               }));
 }
 
-var $$Error = /* alias */0;
+var $$Error;
 
 exports.$$Error = $$Error;
 exports.DirectoryEntry = DirectoryEntry;

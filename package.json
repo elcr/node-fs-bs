@@ -13,9 +13,9 @@
     "test": "jest"
   },
   "dependencies": {
-    "bs-abstract": "^0.18.0",
-    "bs-platform": "^7.0.1",
+    "bs-bastet": "ssh://git@github.com:elcr/bs-bastet-without-bisect.git",
+    "bs-platform": "^7.3.2",
     "node-stream-bs": "ssh://git@github.com:elcr/node-stream-bs.git",
-    "relude": "^0.52.0"
+    "relude": "ssh://git@github.com:elcr/relude-without-bisect.git"
   }
 }

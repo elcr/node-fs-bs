@@ -2,62 +2,44 @@
 'use strict';
 
 var Block = require("bs-platform/lib/js/block.js");
-var Caml_option = require("bs-platform/lib/js/caml_option.js");
 
-function fromJs(param) {
-  return {
-          address: Caml_option.nullable_to_opt(param.address),
-          code: param.code,
-          dest: Caml_option.nullable_to_opt(param.dest),
-          errno: param.errno,
-          info: Caml_option.nullable_to_opt(param.info),
-          message: param.message,
-          path: Caml_option.nullable_to_opt(param.path),
-          port: Caml_option.nullable_to_opt(param.port),
-          syscall: param.syscall
-        };
-}
-
-var SystemError = {
-  fromJs: fromJs
-};
+var SystemError = { };
 
 var UnknownError = { };
 
 function _makeSystemError(exc) {
-  var error = fromJs(exc);
-  var match = error.code;
+  var match = exc.code;
   switch (match) {
     case "EACCES" :
-        return /* AccessDenied */Block.__(0, [error]);
+        return /* AccessDenied */Block.__(0, [exc]);
     case "EADDRINUSE" :
-        return /* AddressInUse */Block.__(1, [error]);
+        return /* AddressInUse */Block.__(1, [exc]);
     case "ECONNREFUSED" :
-        return /* ConnectionRefused */Block.__(2, [error]);
+        return /* ConnectionRefused */Block.__(2, [exc]);
     case "ECONNRESET" :
-        return /* ConnectionReset */Block.__(3, [error]);
+        return /* ConnectionReset */Block.__(3, [exc]);
     case "EEXIST" :
-        return /* FileExists */Block.__(4, [error]);
+        return /* FileExists */Block.__(4, [exc]);
     case "EISDIR" :
-        return /* IsADirectory */Block.__(5, [error]);
+        return /* IsADirectory */Block.__(5, [exc]);
     case "EMFILE" :
-        return /* TooManyOpenFiles */Block.__(6, [error]);
+        return /* TooManyOpenFiles */Block.__(6, [exc]);
     case "ENOENT" :
-        return /* NoSuchFileOrDirectory */Block.__(7, [error]);
+        return /* NoSuchFileOrDirectory */Block.__(7, [exc]);
     case "ENOTDIR" :
-        return /* NotADirectory */Block.__(8, [error]);
+        return /* NotADirectory */Block.__(8, [exc]);
     case "ENOTEMPTY" :
-        return /* DirectoryNotEmpty */Block.__(9, [error]);
+        return /* DirectoryNotEmpty */Block.__(9, [exc]);
     case "ENOTFOUND" :
-        return /* DNSLookupFailed */Block.__(10, [error]);
+        return /* DNSLookupFailed */Block.__(10, [exc]);
     case "EPERM" :
-        return /* NotPermitted */Block.__(11, [error]);
+        return /* NotPermitted */Block.__(11, [exc]);
     case "EPIPE" :
-        return /* BrokenPipe */Block.__(12, [error]);
+        return /* BrokenPipe */Block.__(12, [exc]);
     case "ETIMEDOUT" :
-        return /* TimedOut */Block.__(13, [error]);
+        return /* TimedOut */Block.__(13, [exc]);
     default:
-      return /* UnknownSystemError */Block.__(14, [error]);
+      return /* UnknownSystemError */Block.__(14, [exc]);
   }
 }
 

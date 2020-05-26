@@ -16,9 +16,9 @@ external _mkdtemp : (
 ) => unit = "mkdtemp";
 
 
-let makeTempDir = (~encoding="utf-8", path) =>
+let makeTempDir = (~encoding="utf-8", prefix) =>
     IO.async(resolve =>
-        _mkdtemp(path, { encoding: encoding }, (error, contents) =>
+        _mkdtemp(prefix, { encoding: encoding }, (error, contents) =>
             Js.Null.toOption(error)
                 |> Result.fromOption(contents)
                 |> Result.flip

@@ -1,17 +1,5 @@
 module SystemError = {
     type t('a) = {
-        address: option(string),
-        code: string,
-        dest: option(string),
-        errno: float,
-        info: option('a),
-        message: string,
-        path: option(string),
-        port: option(int),
-        syscall: string
-    };
-
-    type js('a) = {
         address: Js.Nullable.t(string),
         code: string,
         dest: Js.Nullable.t(string),
@@ -21,18 +9,6 @@ module SystemError = {
         path: Js.Nullable.t(string),
         port: Js.Nullable.t(int),
         syscall: string
-    };
-
-    let fromJs = ({ address, code, dest, errno, info, message, path, port, syscall }: js('a)): t('a) => {
-        address: Js.Nullable.toOption(address),
-        code,
-        dest: Js.Nullable.toOption(dest),
-        errno,
-        info: Js.Nullable.toOption(info),
-        message,
-        path: Js.Nullable.toOption(path),
-        port: Js.Nullable.toOption(port),
-        syscall
     };
 };
 
@@ -64,24 +40,23 @@ type t =
     | OtherUnknownError(UnknownError.t) : t;
 
 
-let _makeSystemError = exc => {
-    let error = SystemError.fromJs(exc);
-    switch (error.code) {
-        | "EACCES" => AccessDenied(error)
-        | "EADDRINUSE" => AddressInUse(error)
-        | "ECONNREFUSED" => ConnectionRefused(error)
-        | "ECONNRESET" => ConnectionReset(error)
-        | "EEXIST" => FileExists(error)
-        | "EISDIR" => IsADirectory(error)
-        | "EMFILE" => TooManyOpenFiles(error)
-        | "ENOENT" => NoSuchFileOrDirectory(error)
-        | "ENOTDIR" => NotADirectory(error)
-        | "ENOTEMPTY" => DirectoryNotEmpty(error)
-        | "ENOTFOUND" => DNSLookupFailed(error)
-        | "EPERM" => NotPermitted(error)
-        | "EPIPE" => BrokenPipe(error)
-        | "ETIMEDOUT" => TimedOut(error)
-        | _ => UnknownSystemError(error)
+let _makeSystemError = (exc: SystemError.t('a)) => {
+    switch (exc.code) {
+        | "EACCES" => AccessDenied(exc)
+        | "EADDRINUSE" => AddressInUse(exc)
+        | "ECONNREFUSED" => ConnectionRefused(exc)
+        | "ECONNRESET" => ConnectionReset(exc)
+        | "EEXIST" => FileExists(exc)
+        | "EISDIR" => IsADirectory(exc)
+        | "EMFILE" => TooManyOpenFiles(exc)
+        | "ENOENT" => NoSuchFileOrDirectory(exc)
+        | "ENOTDIR" => NotADirectory(exc)
+        | "ENOTEMPTY" => DirectoryNotEmpty(exc)
+        | "ENOTFOUND" => DNSLookupFailed(exc)
+        | "EPERM" => NotPermitted(exc)
+        | "EPIPE" => BrokenPipe(exc)
+        | "ETIMEDOUT" => TimedOut(exc)
+        | _ => UnknownSystemError(exc)
     }
 };
 
@@ -91,7 +66,7 @@ let _makeUnknownError = exc => OtherUnknownError(exc);
 
 let fromException = exc => {
     let _makeError: (
-        SystemError.js('a) => t,
+        SystemError.t('a) => t,
         UnknownError.t => t,
         Js.Exn.t
     ) => t = [%bs.raw {|

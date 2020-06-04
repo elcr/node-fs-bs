@@ -2,29 +2,23 @@
 'use strict';
 
 var Fs = require("fs");
+var Block = require("bs-platform/lib/js/block.js");
 var Curry = require("bs-platform/lib/js/curry.js");
 var Relude_IO = require("relude/src/Relude_IO.bs.js");
 var NodeFS__Error = require("./NodeFS__Error.bs.js");
-var Relude_Js_Promise = require("relude/src/js/Relude_Js_Promise.bs.js");
 
 function make(path) {
-  return Curry._2(Relude_IO.mapError, NodeFS__Error.fromException, Relude_Js_Promise.toIOLazy((function (param) {
-                    return new Promise((function (resolve, reject) {
-                                  var stream = Fs.createReadStream(path);
-                                  stream.on("error", reject);
-                                  stream.on("ready", (function (param) {
-                                          return Curry._1(resolve, stream);
-                                        }));
-                                  
-                                }));
-                  })));
+  return Relude_IO.async((function (resolve) {
+                var stream = Fs.createReadStream(path);
+                stream.on("error", (function (exc) {
+                        return Curry._1(resolve, /* Error */Block.__(1, [NodeFS__Error.fromException(exc)]));
+                      }));
+                stream.on("ready", (function (param) {
+                        return Curry._1(resolve, /* Ok */Block.__(0, [stream]));
+                      }));
+                
+              }));
 }
 
-var $$Error;
-
-var Utils;
-
-exports.$$Error = $$Error;
-exports.Utils = Utils;
 exports.make = make;
 /* fs Not a pure module */

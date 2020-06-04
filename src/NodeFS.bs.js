@@ -8,8 +8,6 @@ var ReadDir;
 
 var ReadFile;
 
-var Utils;
-
 var ReadStream;
 
 var Stat;
@@ -19,7 +17,6 @@ var MakeTempDir;
 exports.$$Error = $$Error;
 exports.ReadDir = ReadDir;
 exports.ReadFile = ReadFile;
-exports.Utils = Utils;
 exports.ReadStream = ReadStream;
 exports.Stat = Stat;
 exports.MakeTempDir = MakeTempDir;

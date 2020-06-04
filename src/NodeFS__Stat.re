@@ -1,7 +1,5 @@
 open Relude.Globals;
 
-module Error = NodeFS__Error;
-
 
 type t = {
     dev: int,
@@ -66,7 +64,7 @@ let stat = path =>
             Js.Null.toOption(error)
                 |> Result.fromOption(data)
                 |> Result.flip
-                |> Result.mapError(Error.fromException)
+                |> Result.mapError(NodeFS__Error.fromException)
                 |> resolve
         )
     );

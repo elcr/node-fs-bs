@@ -23,9 +23,6 @@ function readDir(encodingOpt, path) {
               }));
 }
 
-var $$Error;
-
-exports.$$Error = $$Error;
 exports.DirectoryEntry = DirectoryEntry;
 exports.readDir = readDir;
 /* fs Not a pure module */

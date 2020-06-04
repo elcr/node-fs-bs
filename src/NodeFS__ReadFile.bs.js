@@ -35,9 +35,6 @@ function readBuffer(path) {
               }));
 }
 
-var $$Error;
-
-exports.$$Error = $$Error;
 exports._toResult = _toResult;
 exports.readText = readText;
 exports.readBuffer = readBuffer;

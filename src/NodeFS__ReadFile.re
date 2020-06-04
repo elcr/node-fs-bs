@@ -1,7 +1,5 @@
 open Relude.Globals;
 
-module Error = NodeFS__Error;
-
 
 type _readFileOptions = {
     encoding: Js.Null.t(string)
@@ -28,7 +26,7 @@ let _toResult = (error, contents) =>
     Js.Null.toOption(error)
         |> Result.fromOption(contents)
         |> Result.flip
-        |> Result.mapError(Error.fromException);
+        |> Result.mapError(NodeFS__Error.fromException);
 
 
 let readText = (~encoding="utf-8", path) =>

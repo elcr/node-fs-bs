@@ -40,7 +40,7 @@ type t =
     | OtherUnknownError(UnknownError.t) : t;
 
 
-let _makeSystemError = (exc: SystemError.t('a)) => {
+let _makeSystemError = (exc: SystemError.t('a)) =>
     switch (exc.code) {
         | "EACCES" => AccessDenied(exc)
         | "EADDRINUSE" => AddressInUse(exc)
@@ -57,8 +57,7 @@ let _makeSystemError = (exc: SystemError.t('a)) => {
         | "EPIPE" => BrokenPipe(exc)
         | "ETIMEDOUT" => TimedOut(exc)
         | _ => UnknownSystemError(exc)
-    }
-};
+    };
 
 
 let _makeUnknownError = exc => OtherUnknownError(exc);

@@ -1,7 +1,5 @@
 open Relude.Globals;
 
-module Error = NodeFS__Error;
-
 
 type _mkdtempOptions = {
     encoding: string
@@ -22,7 +20,7 @@ let makeTempDir = (~encoding="utf-8", prefix) =>
             Js.Null.toOption(error)
                 |> Result.fromOption(contents)
                 |> Result.flip
-                |> Result.mapError(Error.fromException)
+                |> Result.mapError(NodeFS__Error.fromException)
                 |> resolve
         )
     );

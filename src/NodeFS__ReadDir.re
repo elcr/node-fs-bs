@@ -1,7 +1,5 @@
 open Relude.Globals;
 
-module Error = NodeFS__Error;
-
 
 module DirectoryEntry = {
     type t = {
@@ -51,7 +49,7 @@ let readDir = (~encoding="utf-8", path) =>
             Js.Null.toOption(error)
                 |> Result.fromOption(files)
                 |> Result.flip
-                |> Result.mapError(Error.fromException)
+                |> Result.mapError(NodeFS__Error.fromException)
                 |> resolve
         )
     );

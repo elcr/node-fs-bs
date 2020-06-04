@@ -20,8 +20,5 @@ function makeTempDir(encodingOpt, prefix) {
               }));
 }
 
-var $$Error;
-
-exports.$$Error = $$Error;
 exports.makeTempDir = makeTempDir;
 /* fs Not a pure module */

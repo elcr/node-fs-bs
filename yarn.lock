@@ -2,14 +2,13 @@
 # yarn lockfile v1
 
 
-"bs-bastet@ssh://git@github.com:elcr/bs-bastet-without-bisect.git":
+"bs-bastet@https://github.com/elcr/bastet.git":
   version "1.2.5"
-  resolved "ssh://git@github.com:elcr/bs-bastet-without-bisect.git#9c10ef27a2932ea0f3d98eb2d202f02d27dee67d"
+  resolved "https://github.com/elcr/bastet.git#918b3f78b97c871302dd2be685bf527af9424b85"
   dependencies:
-    bs-platform "^7.2.2"
     bs-stdlib-shims "^0.1.0"
 
-bs-platform@^7.2.2, bs-platform@^7.3.2:
+bs-platform@^7.3.2:
   version "7.3.2"
   resolved "https://registry.yarnpkg.com/bs-platform/-/bs-platform-7.3.2.tgz#301f5c9b4e8cf5713cb60ca22e145e56e793affe"
   integrity sha512-seJL5g4anK9la4erv+B2o2sMHQCxDF6OCRl9en3hbaUos/S3JsusQ0sPp4ORsbx5eXfHLYBwPljwKXlgpXtsgQ==
@@ -23,9 +22,6 @@ bs-stdlib-shims@^0.1.0:
   version "0.1.0"
   resolved "ssh://git@github.com:elcr/node-stream-bs.git#0175105191d745e55f4cff361b3fb7116141d88e"
 
-"relude@ssh://git@github.com:elcr/relude-without-bisect.git":
+"relude@https://github.com/elcr/relude.git":
   version "0.63.1"
-  resolved "ssh://git@github.com:elcr/relude-without-bisect.git#99d9dd9638308094614f2aa841922f277b0f7eb9"
-  dependencies:
-    bs-bastet "ssh://git@github.com:elcr/bs-bastet-without-bisect.git"
-    bs-platform "^7.2.2"
+  resolved "https://github.com/elcr/relude.git#dba0870b482522fff8f23d6655bfd6cc155903f1"

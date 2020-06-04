@@ -17,8 +17,5 @@ function stat(path) {
               }));
 }
 
-var $$Error;
-
-exports.$$Error = $$Error;
 exports.stat = stat;
 /* fs Not a pure module */
